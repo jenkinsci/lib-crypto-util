@@ -20,6 +20,7 @@ public class PKIXTest extends TestCase {
         X509Certificate sun = load("sun.crt");
         X509Certificate verisign = load("verisign.crt");
 
+        // if this test fails because certificates expire, see get-cert.sh
         CertificateUtil.validatePath(Arrays.asList(site,sun));
 
         assertFailedValidation(sun,site);   // invalid order
