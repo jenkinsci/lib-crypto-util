@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.jenkins-ci</groupId>
     <artifactId>jenkins</artifactId>
-    <version>1.12</version>
+    <version>1.33</version>
   </parent>
 
   <artifactId>crypto-util</artifactId>
@@ -41,11 +41,4 @@
       <url>http://jenkins-ci.org/mit-license</url>
     </license>
   </licenses>
-
-  <repositories>
-    <repository>
-      <id>m.g.o-public</id>
-      <url>http://maven.glassfish.org/content/groups/public/</url>
-    </repository>
-  </repositories>
 </project>
