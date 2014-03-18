@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
+import java.security.Key;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.PublicKey;
@@ -107,6 +108,23 @@ public class RSAPublicKeyUtil {
         byte[] extractedBytes =  encode(key);
         MessageDigest md = MessageDigest.getInstance("MD5");
         byte[] digest = md.digest(extractedBytes);
+        return toHex(digest);
+    }
+
+    /**
+     * Gets RSA key fingerprint in the form EC2 does, which is different from how OpenSSH does.
+     */
+    public static String getEC2FingerPrint(Key publicKey) throws GeneralSecurityException {
+        byte[] extractedBytes =  publicKey.getEncoded();
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] digest = md.digest(extractedBytes);
+        return toHex(digest);
+    }
+
+    /**
+     * Encodes bytes into the form of "f7:7a:42:76:79:e8:8a:1a:4a:32:0c:b3:f9:3b:53:d4"
+     */
+    private static String toHex(byte[] digest) {
         String str = Hex.encodeHexString(digest);
 
         // insert ";"
@@ -154,5 +172,4 @@ public class RSAPublicKeyUtil {
             throw new AssertionError(e);
         }
     }
-
 }
