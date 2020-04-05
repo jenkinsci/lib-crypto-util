@@ -1,5 +1,6 @@
 package org.jvnet.hudson.crypto;
 
+import java.nio.charset.StandardCharsets;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 
@@ -71,7 +72,7 @@ public class RSAPublicKeyUtil {
             int len = readInt();
             byte[] buf = new byte[len];
             readFully(buf);
-            return new String(buf);
+            return new String(buf, StandardCharsets.UTF_8);
         }
 
         private BigInteger readBigInt() throws IOException {
@@ -88,7 +89,7 @@ public class RSAPublicKeyUtil {
         }
 
         public void writeString(String s) throws IOException {
-            writeBinary(s.getBytes());
+            writeBinary(s.getBytes(StandardCharsets.UTF_8));
         }
 
         public void writeBinary(byte[] buf) throws IOException {
