@@ -14,6 +14,7 @@
   <properties>
     <java.level>8</java.level>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spotbugs.failOnError>false</spotbugs.failOnError>
   </properties>
 
   <dependencies>
@@ -46,4 +47,11 @@
       <url>https://opensource.org/licenses/MIT</url>
     </license>
   </licenses>
+  
+  <pluginRepositories>
+    <pluginRepository>
+      <id>repo.jenkins-ci.org</id>
+      <url>https://repo.jenkins-ci.org/public/</url>
+    </pluginRepository>
+  </pluginRepositories>
 </project>
