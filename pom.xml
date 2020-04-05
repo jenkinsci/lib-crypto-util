@@ -4,12 +4,18 @@
   <parent>
     <groupId>org.jenkins-ci</groupId>
     <artifactId>jenkins</artifactId>
-    <version>1.33</version>
+    <version>1.54</version>
   </parent>
 
   <artifactId>crypto-util</artifactId>
   <version>1.5-SNAPSHOT</version>
   <name>Utility around Java Crypto API</name>
+
+  <properties>
+    <java.level>8</java.level>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spotbugs.failOnError>false</spotbugs.failOnError>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -34,7 +40,14 @@
   <licenses>
     <license>
       <name>MIT License</name>
-      <url>http://jenkins-ci.org/mit-license</url>
+      <url>https://opensource.org/licenses/MIT</url>
     </license>
   </licenses>
+  
+  <pluginRepositories>
+    <pluginRepository>
+      <id>repo.jenkins-ci.org</id>
+      <url>https://repo.jenkins-ci.org/public/</url>
+    </pluginRepository>
+  </pluginRepositories>
 </project>
