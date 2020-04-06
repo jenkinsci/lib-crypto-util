@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
+import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 import java.security.Key;
 import java.security.KeyFactory;
@@ -71,7 +72,7 @@ public class RSAPublicKeyUtil {
             int len = readInt();
             byte[] buf = new byte[len];
             readFully(buf);
-            return new String(buf);
+            return new String(buf, Charset.defaultCharset());
         }
 
         private BigInteger readBigInt() throws IOException {
@@ -88,7 +89,7 @@ public class RSAPublicKeyUtil {
         }
 
         public void writeString(String s) throws IOException {
-            writeBinary(s.getBytes());
+            writeBinary(s.getBytes(Charset.defaultCharset()));
         }
 
         public void writeBinary(byte[] buf) throws IOException {
