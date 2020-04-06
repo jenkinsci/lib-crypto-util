@@ -8,7 +8,7 @@
   </parent>
 
   <artifactId>crypto-util</artifactId>
-  <version>1.5-SNAPSHOT</version>
+  <version>1.5</version>
   <name>Utility around Java Crypto API</name>
 
   <properties>
@@ -38,6 +38,7 @@
   <scm>
     <connection>scm:git:git://github.com/jenkinsci/lib-crypto-util.git</connection>
     <developerConnection>scm:git:git@github.com:jenkinsci/lib-crypto-util.git</developerConnection>
+    <tag>crypto-util-1.5</tag>
   </scm>
 
   <licenses>
