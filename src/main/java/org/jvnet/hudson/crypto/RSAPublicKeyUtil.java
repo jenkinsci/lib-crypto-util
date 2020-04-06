@@ -1,9 +1,5 @@
 package org.jvnet.hudson.crypto;
 
-import java.nio.charset.StandardCharsets;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.Hex;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -12,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
+import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 import java.security.Key;
 import java.security.KeyFactory;
@@ -21,6 +18,8 @@ import java.security.interfaces.DSAPublicKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.DSAPublicKeySpec;
 import java.security.spec.RSAPublicKeySpec;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.Hex;
 
 /**
  * Utility code to work around horrible Java Crypto API.
@@ -72,7 +71,7 @@ public class RSAPublicKeyUtil {
             int len = readInt();
             byte[] buf = new byte[len];
             readFully(buf);
-            return new String(buf, StandardCharsets.UTF_8);
+            return new String(buf, Charset.defaultCharset());
         }
 
         private BigInteger readBigInt() throws IOException {
@@ -89,7 +88,7 @@ public class RSAPublicKeyUtil {
         }
 
         public void writeString(String s) throws IOException {
-            writeBinary(s.getBytes(StandardCharsets.UTF_8));
+            writeBinary(s.getBytes(Charset.defaultCharset()));
         }
 
         public void writeBinary(byte[] buf) throws IOException {
