@@ -55,7 +55,7 @@ public class SignatureOutputStream extends FilterOutputStream {
             sig.update((byte)b);
             out.write(b);
         } catch (SignatureException e) {
-            throw (IOException)new IOException(e.getMessage()).initCause(e);
+            throw new IOException(e);
         }
     }
 
@@ -65,7 +65,7 @@ public class SignatureOutputStream extends FilterOutputStream {
             sig.update(b,off,len);
             out.write(b,off,len);
         } catch (SignatureException e) {
-            throw (IOException)new IOException(e.getMessage()).initCause(e);
+            throw new IOException(e);
         }
     }
 }
