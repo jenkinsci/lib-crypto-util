@@ -1,5 +1,7 @@
 package org.jvnet.hudson.crypto;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 
@@ -105,6 +107,7 @@ public class RSAPublicKeyUtil {
     /**
      * Gets RSA key fingerprint in the form of "f7:7a:42:76:79:e8:8a:1a:4a:32:0c:b3:f9:3b:53:d4"
      */
+    @SuppressFBWarnings(value = "WEAK_MESSAGE_DIGEST_MD5", justification = "Used for fingerprinting, not security.")
     public static String getFingerPrint(PublicKey key) throws GeneralSecurityException {
         byte[] extractedBytes =  encode(key);
         MessageDigest md = MessageDigest.getInstance("MD5");
@@ -115,6 +118,7 @@ public class RSAPublicKeyUtil {
     /**
      * Gets RSA key fingerprint in the form EC2 does, which is different from how OpenSSH does.
      */
+    @SuppressFBWarnings(value = "WEAK_MESSAGE_DIGEST_MD5", justification = "Used for fingerprinting, not security.")
     public static String getEC2FingerPrint(Key publicKey) throws GeneralSecurityException {
         byte[] extractedBytes =  publicKey.getEncoded();
         MessageDigest md = MessageDigest.getInstance("MD5");
