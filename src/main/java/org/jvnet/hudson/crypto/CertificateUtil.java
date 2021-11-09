@@ -53,7 +53,7 @@ public class CertificateUtil {
     public static Set<TrustAnchor> getDefaultRootCAs() throws NoSuchAlgorithmException, KeyStoreException {
         X509TrustManager x509tm = getDefaultX509TrustManager();
 
-        Set<TrustAnchor> rootCAs = new HashSet<TrustAnchor>();
+        Set<TrustAnchor> rootCAs = new HashSet<>();
         for (X509Certificate c : x509tm.getAcceptedIssuers()) {
             rootCAs.add(new TrustAnchor(c,null));
         }
