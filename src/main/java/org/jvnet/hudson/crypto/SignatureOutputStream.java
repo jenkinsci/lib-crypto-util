@@ -23,6 +23,8 @@
  */
 package org.jvnet.hudson.crypto;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import org.apache.commons.io.output.NullOutputStream;
 
 import java.security.Signature;
@@ -37,6 +39,7 @@ import java.io.IOException;
 public class SignatureOutputStream extends FilterOutputStream {
     private final Signature sig;
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Not actionable.")
     public SignatureOutputStream(OutputStream out, Signature sig) {
         super(out);
         this.sig = sig;
