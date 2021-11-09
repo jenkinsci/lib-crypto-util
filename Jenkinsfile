@@ -22,7 +22,7 @@ for (int i = 0; i < platforms.size(); ++i) {
 
                 stage('Build') {
                     timeout(30) {
-                      infra.runMaven(["clean", "install", "-Dmaven.test.failure.ignore=true"])
+                      infra.runMaven(["clean", "install", "-Dmaven.test.failure.ignore=true", "-Dspotbugs.failOnError=false"])
                     }
                 }
 
@@ -32,7 +32,15 @@ for (int i = 0; i < platforms.size(); ++i) {
 
                     if (label == 'linux') {
                       archiveArtifacts artifacts: 'target/**/*.jar'
-                      findbugs pattern: '**/target/findbugsXml.xml'
+                      def folders = env.JOB_NAME.split('/')
+                      if (folders.length > 1) {
+                        discoverGitReferenceBuild(scm: folders[1])
+                      }
+                      recordIssues([tool: spotBugs(pattern: '**/target/spotbugsXml.xml,**/target/findbugsXml.xml'),
+                          sourceCodeEncoding: 'UTF-8',
+                          skipBlames: true,
+                          trendChartType: 'TOOLS_ONLY',
+                          qualityGates: [[threshold: 1, type: 'NEW', unstable: true]]])
                     }
                 }
             }
