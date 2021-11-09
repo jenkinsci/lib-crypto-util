@@ -46,7 +46,7 @@ public class SignatureOutputStream extends FilterOutputStream {
     }
 
     public SignatureOutputStream(Signature sig) {
-        this(new NullOutputStream(),sig);
+        this(NullOutputStream.NULL_OUTPUT_STREAM, sig);
     }
 
     @Override
