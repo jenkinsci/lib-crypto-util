@@ -1,5 +1,7 @@
 package org.jvnet.hudson.crypto;
 
+import static org.junit.Assert.assertThrows;
+
 import junit.framework.TestCase;
 
 import java.security.GeneralSecurityException;
@@ -7,6 +9,7 @@ import java.security.cert.CertPathValidatorException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -21,20 +24,17 @@ public class PKIXTest extends TestCase {
         X509Certificate verisign = load("verisign.crt");
 
         // if this test fails because certificates expire, see get-cert.sh
-        CertificateUtil.validatePath(Arrays.asList(site,sun));
+        CertificateUtil.validatePath(Arrays.asList(site, sun));
 
-        assertFailedValidation(sun,site);   // invalid order
-        assertFailedValidation(site);       // missing link
+        // invalid order
+        assertThrows(
+                CertPathValidatorException.class,
+                () -> CertificateUtil.validatePath(Arrays.asList(sun, site)));
 
-    }
-
-    private void assertFailedValidation(X509Certificate... certs) throws GeneralSecurityException {
-        try {
-            CertificateUtil.validatePath(Arrays.asList(certs));
-            fail();
-        } catch (CertPathValidatorException e) {
-            System.out.println(e.getMessage());
-        }
+        // missing link
+        assertThrows(
+                CertPathValidatorException.class,
+                () -> CertificateUtil.validatePath(Collections.singletonList(site)));
     }
 
     private X509Certificate load(String res) throws GeneralSecurityException {
