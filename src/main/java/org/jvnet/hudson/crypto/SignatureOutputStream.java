@@ -23,6 +23,7 @@
  */
 package org.jvnet.hudson.crypto;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import org.apache.commons.io.output.NullOutputStream;
@@ -60,7 +61,7 @@ public class SignatureOutputStream extends FilterOutputStream {
     }
 
     @Override
-    public void write(byte[] b, int off, int len) throws IOException {
+    public void write(@NonNull byte[] b, int off, int len) throws IOException {
         try {
             sig.update(b,off,len);
             out.write(b,off,len);
