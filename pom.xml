@@ -5,14 +5,19 @@
     <groupId>org.jenkins-ci</groupId>
     <artifactId>jenkins</artifactId>
     <version>1.67</version>
+    <relativePath />
   </parent>
 
   <artifactId>crypto-util</artifactId>
-  <version>1.6-SNAPSHOT</version>
+  <version>${revision}${changelist}</version>
   <name>Utility around Java Crypto API</name>
+  <url>https://github.com/jenkinsci/lib-${project.artifactId}</url>
 
   <properties>
+    <revision>1.6</revision>
+    <changelist>-SNAPSHOT</changelist>
     <java.level>8</java.level>
+    <gitHubRepo>jenkinsci/lib-${project.artifactId}</gitHubRepo>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -20,7 +25,6 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -41,9 +45,10 @@
   </dependencies>
 
   <scm>
-    <connection>scm:git:git://github.com/jenkinsci/lib-crypto-util.git</connection>
-    <developerConnection>scm:git:git@github.com:jenkinsci/lib-crypto-util.git</developerConnection>
-    <tag>HEAD</tag>
+    <connection>scm:git:git://github.com/${gitHubRepo}.git</connection>
+    <developerConnection>scm:git:git@github.com:${gitHubRepo}.git</developerConnection>
+    <url>https://github.com/${gitHubRepo}</url>
+    <tag>${scmTag}</tag>
   </scm>
 
   <licenses>
