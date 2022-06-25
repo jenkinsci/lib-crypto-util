@@ -9,7 +9,7 @@ import java.security.cert.CertPathValidatorException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -34,7 +34,7 @@ public class PKIXTest extends TestCase {
         // missing link
         assertThrows(
                 CertPathValidatorException.class,
-                () -> CertificateUtil.validatePath(Collections.singletonList(site)));
+                () -> CertificateUtil.validatePath(List.of(site)));
     }
 
     private X509Certificate load(String res) throws GeneralSecurityException {
