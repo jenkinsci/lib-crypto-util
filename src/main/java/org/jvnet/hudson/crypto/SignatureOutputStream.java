@@ -25,8 +25,6 @@ package org.jvnet.hudson.crypto;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 
-import org.apache.commons.io.output.NullOutputStream;
-
 import java.security.Signature;
 import java.security.SignatureException;
 import java.io.FilterOutputStream;
@@ -45,7 +43,7 @@ public class SignatureOutputStream extends FilterOutputStream {
     }
 
     public SignatureOutputStream(Signature sig) {
-        this(NullOutputStream.NULL_OUTPUT_STREAM, sig);
+        this(OutputStream.nullOutputStream(), sig);
     }
 
     @Override
