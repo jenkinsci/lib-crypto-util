@@ -2,7 +2,7 @@ package org.jvnet.hudson.crypto;
 
 import static org.junit.Assert.assertThrows;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 import java.security.GeneralSecurityException;
 import java.security.cert.CertPathValidatorException;
@@ -14,10 +14,11 @@ import java.util.List;
 /**
  * @author Kohsuke Kawaguchi
  */
-public class PKIXTest extends TestCase {
+public class PKIXTest {
     /**
      * Makes sure valid certificate chain validates.
      */
+    @Test
     public void testPathValidation() throws Exception {
         X509Certificate site = load("site.crt");
         X509Certificate sun = load("sun.crt");
