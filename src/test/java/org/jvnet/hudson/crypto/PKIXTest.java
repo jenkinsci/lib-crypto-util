@@ -1,8 +1,6 @@
 package org.jvnet.hudson.crypto;
 
-import static org.junit.Assert.assertThrows;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.security.GeneralSecurityException;
 import java.security.cert.CertPathValidatorException;
@@ -11,15 +9,17 @@ import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 /**
  * @author Kohsuke Kawaguchi
  */
-public class PKIXTest {
+class PKIXTest {
     /**
      * Makes sure valid certificate chain validates.
      */
     @Test
-    public void testPathValidation() throws Exception {
+    void testPathValidation() throws Exception {
         X509Certificate site = load("site.crt");
         X509Certificate sun = load("sun.crt");
         X509Certificate verisign = load("verisign.crt");
