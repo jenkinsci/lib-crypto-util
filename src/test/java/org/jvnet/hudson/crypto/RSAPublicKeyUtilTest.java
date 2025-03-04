@@ -1,6 +1,8 @@
 package org.jvnet.hudson.crypto;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 import java.math.BigInteger;
 import java.security.interfaces.RSAPublicKey;
@@ -8,7 +10,8 @@ import java.security.interfaces.RSAPublicKey;
 /**
  * @author Kohsuke Kawaguchi
  */
-public class RSAPublicKeyUtilTest extends TestCase {
+public class RSAPublicKeyUtilTest {
+    @Test
     public void testReadPublicKey() throws Exception {
         RSAPublicKey p = (RSAPublicKey) RSAPublicKeyUtil.readPublicKey("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCzBy1GEihAxSgrsEANgCxYwxS8Yy0U7cKq/1MMtr4/IrW2m2rzDcr4a7ZG/p/XrchCMn5eIekq1dYHsB0hY81iJr7jMZi7XbQx/LohF833YhIRctALpNzPunqBxZvOUVDib/dfX6LuoZTOojI/W5UPYrzAjyrjKMQvF5Mo0LaZ6eN1LElVaGzWExqO7mNkOrJY3IVurPu81mK4E+59FHTuB/oIawHUlxjMgBFPGKZBmb0cyVyViEmY6E78bNcN+frdSxZ72gcK/J7l1gfGz6YNQX6hKA+3v2O+/6pHf282W2hy0u4nw2DTs5NrsTnG8koiivilXC3VbhgVmQnUFKx5 kohsuke@griffon.2013");
         System.out.println(p);
@@ -18,6 +21,7 @@ public class RSAPublicKeyUtilTest extends TestCase {
         assertEquals(p.getPublicExponent(), new BigInteger("65537"));
     }
 
+    @Test
     public void testGetFingerPrint() throws Exception {
         RSAPublicKey p = (RSAPublicKey) RSAPublicKeyUtil.readPublicKey("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCzBy1GEihAxSgrsEANgCxYwxS8Yy0U7cKq/1MMtr4/IrW2m2rzDcr4a7ZG/p/XrchCMn5eIekq1dYHsB0hY81iJr7jMZi7XbQx/LohF833YhIRctALpNzPunqBxZvOUVDib/dfX6LuoZTOojI/W5UPYrzAjyrjKMQvF5Mo0LaZ6eN1LElVaGzWExqO7mNkOrJY3IVurPu81mK4E+59FHTuB/oIawHUlxjMgBFPGKZBmb0cyVyViEmY6E78bNcN+frdSxZ72gcK/J7l1gfGz6YNQX6hKA+3v2O+/6pHf282W2hy0u4nw2DTs5NrsTnG8koiivilXC3VbhgVmQnUFKx5 kohsuke@griffon.2013");
         assertEquals("f7:7a:42:76:79:e8:8a:1a:4a:32:0c:b3:f9:3b:53:d4",RSAPublicKeyUtil.getFingerPrint(p));
