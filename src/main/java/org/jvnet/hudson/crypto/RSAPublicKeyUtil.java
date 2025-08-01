@@ -1,9 +1,6 @@
 package org.jvnet.hudson.crypto;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
-import org.apache.commons.codec.binary.Hex;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -23,6 +20,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.DSAPublicKeySpec;
 import java.security.spec.RSAPublicKeySpec;
 import java.util.Base64;
+import java.util.HexFormat;
 
 /**
  * Utility code to work around horrible Java Crypto API.
@@ -30,6 +28,9 @@ import java.util.Base64;
  * @author Kohsuke Kawaguchi
  */
 public class RSAPublicKeyUtil {
+
+    private static final HexFormat HEX_FORMAT = HexFormat.ofDelimiter(":");
+
     /**
      * Loads RSA public key by parsing the OpenSSH format that it uses in ~/.ssh/authorized_keys
      *
@@ -130,16 +131,7 @@ public class RSAPublicKeyUtil {
      * Encodes bytes into the form of "f7:7a:42:76:79:e8:8a:1a:4a:32:0c:b3:f9:3b:53:d4"
      */
     private static String toHex(byte[] digest) {
-        String str = Hex.encodeHexString(digest);
-
-        // insert ";"
-        StringBuilder buf = new StringBuilder(digest.length*3);
-        for (int i=0; i<str.length(); i+=2) {
-            if (buf.length()>0) buf.append(':');
-            buf.append(str,i,i+2);
-        }
-
-        return buf.toString();
+        return HEX_FORMAT.formatHex(digest);
     }
 
     /**
