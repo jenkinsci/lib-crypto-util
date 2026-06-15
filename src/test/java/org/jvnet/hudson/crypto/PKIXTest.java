@@ -5,9 +5,11 @@ import org.junit.jupiter.api.Test;
 import java.security.GeneralSecurityException;
 import java.security.cert.CertPathValidatorException;
 import java.security.cert.CertificateFactory;
+import java.security.cert.TrustAnchor;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -23,19 +25,19 @@ class PKIXTest {
         X509Certificate site = load("site.crt");
         X509Certificate sun = load("sun.crt");
         X509Certificate verisign = load("verisign.crt");
+        Set<TrustAnchor> trustAnchors = Set.of(new TrustAnchor(verisign, null));
 
-        // if this test fails because certificates expire, see get-cert.sh
-        CertificateUtil.validatePath(Arrays.asList(site, sun));
+        CertificateUtil.validatePath(Arrays.asList(site, sun), trustAnchors);
 
         // invalid order
         assertThrows(
                 CertPathValidatorException.class,
-                () -> CertificateUtil.validatePath(Arrays.asList(sun, site)));
+                () -> CertificateUtil.validatePath(Arrays.asList(sun, site), trustAnchors));
 
         // missing link
         assertThrows(
                 CertPathValidatorException.class,
-                () -> CertificateUtil.validatePath(List.of(site)));
+                () -> CertificateUtil.validatePath(List.of(site), trustAnchors));
     }
 
     private X509Certificate load(String res) throws GeneralSecurityException {
